@@ -1,0 +1,24 @@
+[
+  {
+      "model": "levelupapi.event",
+      "pk": 1,
+      "fields": {
+          "game": 1,
+          "description": "It's board game night!",
+          "date": "2023-11-16",
+          "time": "20:30",
+          "organizer": 1
+      }
+  },
+  {
+    "model": "levelupapi.event",
+    "pk": 2,
+    "fields": {
+      "game": 2,
+      "description": "It's D&D night!",
+      "date": "2023-11-17",
+      "time": "21:30",
+      "organizer": 1
+    }
+  }
+]
