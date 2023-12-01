@@ -4,7 +4,7 @@
       "pk": 1,
       "fields": {
           "game": 1,
-          "description": "It's board game night!",
+          "description": "It's game night!",
           "date": "2023-11-16",
           "time": "20:30",
           "organizer": 1
@@ -15,7 +15,7 @@
     "pk": 2,
     "fields": {
       "game": 2,
-      "description": "It's D&D night!",
+      "description": "It's my game night!",
       "date": "2023-11-17",
       "time": "21:30",
       "organizer": 1

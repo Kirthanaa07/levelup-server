@@ -3,9 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from levelupapi.models import Event
-from levelupapi.models import Game
-from levelupapi.models import Gamer
+from levelupapi.models import Event,Game, Gamer
 
 class EventView(ViewSet):
     """Level up game view"""
@@ -29,8 +27,11 @@ class EventView(ViewSet):
         Returns:
             Response -- JSON serialized list of game types
         """
-        event = Event.objects.all()
-        serializer = EventSerializer(event, many=True)
+        events = Event.objects.all()
+        game = request.query_params.get('game', None)
+        if game is not None:
+            events = events.filter(game_id=game)
+        serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
     
     def create(self, request):
@@ -39,7 +40,7 @@ class EventView(ViewSet):
             Response -- JSON serialized event instance
         """
         game = Game.objects.get(pk=request.data["game"])
-        gamer = Gamer.objects.get(pk=request.data["organizer"])
+        gamer = Gamer.objects.get(uid=request.data["userId"])
 
         event = Event.objects.create(
             description=request.data["description"],
@@ -58,16 +59,14 @@ class EventView(ViewSet):
         """
 
         event = Event.objects.get(pk=pk)
+        game = Game.objects.get(pk=request.data["game"])
+        organizer = Gamer.objects.get(pk=request.data["userId"])
+        
         event.description = request.data["description"]
         event.date = request.data["date"]
         event.time = request.data["time"]
-
-        game = Game.objects.get(pk=request.data["game"])
         event.game = game
-
-        gamer = Gamer.objects.get(pk=request.data["organizer"])
-        event.organizer = gamer
-
+        event.organizer = organizer
         event.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
@@ -83,4 +82,4 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('id', 'game', 'description', 'date', 'time', 'organizer')
-        depth = 0
+        depth = 2

@@ -16,8 +16,8 @@
     "pk": 2,
     "fields": {
         "game_type": 2,
-        "title": "D&D",
-        "maker": "D&D inc",
+        "title": "hi",
+        "maker": "hi inc",
         "gamer": 1,
         "number_of_players": 5,
         "skill_level": 4

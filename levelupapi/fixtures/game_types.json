@@ -17,7 +17,7 @@
       "model": "levelupapi.gametype",
       "pk": 3,
       "fields": {
-          "label": "MMO game"
+          "label": "game"
       }
   }
 ]
